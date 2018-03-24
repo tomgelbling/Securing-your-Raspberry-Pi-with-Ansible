@@ -1,0 +1,125 @@
+---
+
+      - name: Include variables file
+        include_vars:
+          file: "vars/main.yaml"
+
+      - name: Update apt packages list
+        apt:
+          upgrade: no
+          update_cache: yes
+          cache_valid_time: 86400 #One day
+
+      - name: Install required packages
+        apt:
+          name: "{{ item }}"
+        with_items:
+          - ufw
+          - fail2ban
+
+###The pi user has to be present for some aspects of the Raspbian distribution, therefore it will not be deleted.
+
+      - name: Change the password of the user pi
+        user:
+          name: pi
+          password: "{{ pi_custom_password }}"
+          state: present
+          update_password: always
+
+      - name: Create alternative user
+        user:
+          name: "{{ alternative_user }}"
+          group: sudo
+          uid: 5000
+          password: "{{ alternative_user_password }}"
+          state: present
+          update_password: always
+          shell: /bin/bash
+
+      - name: Establish Cronjob to update the openssh-server package on a daily basis
+        cron:
+          name: Cronjob to update the openssh-server package on a daily basis
+          user: root
+          minute: "0"
+          hour: "0"
+          day: "*"
+          month: "*"
+          weekday: "*"
+          state: present
+          job: "apt-get install openssh-server -y"
+
+      - name: Set users that are allowed to use SSH
+        lineinfile:
+          path: "{{ sshd_config_path }}"
+          insertafter: "EOF"
+          line: "AllowUsers {{ alternative_user }}"
+
+      - name: Set users that are not allowed to use SSH
+        lineinfile:
+          path: "{{ sshd_config_path }}"
+          insertafter: "EOF"
+          line: "DenyUsers pi root"
+
+      - name: Copy authorized_keys file to Raspberry Pi
+        copy:
+          src: files/authorized_keys
+          dest: "/home/{{ alternative_user }}/.ssh/"
+          owner: "{{ alternative_user }}"
+          group: root
+          mode: 0644
+
+      - name: Disable ChallengeResponseAuthentication
+        lineinfile:
+          path: "{{ sshd_config_path }}"
+          regexp: "^ChallengeResponseAuthentication"
+          line: "ChallengeResponseAuthentication no"
+
+      - name: Disable PasswordAuthentication
+        lineinfile:
+          path: "{{ sshd_config_path }}"
+          regexp: "^PasswordAuthentication"
+          line: "PasswordAuthentication no"
+
+      - name: Disable UsePAM
+        lineinfile:
+          path: "{{ sshd_config_path }}"
+          regexp: "^UsePAM"
+          line: "UsePAM no"
+
+### UFW muss einen reboot triggern
+
+      - name: Start and enable UFW
+        ufw:
+          state: enabled
+
+      - name: Establish default incoming firewall rule
+        ufw:
+          policy: deny
+          direction: incoming
+
+      - name: Establish default outgoing firewall rule
+        ufw:
+          policy: allow
+          direction: outgoing
+
+      - name: Establish ssh firewall rule
+        ufw:
+          rule: limit
+          port: ssh
+          proto: tcp
+
+#Fail2ban internals and examples: https://www.digitalocean.com/community/tutorials/how-fail2ban-works-to-protect-services-on-a-linux-server
+
+      - name: Copy jail.local file to Raspberry Pi
+        copy:
+          src: files/jail.local
+          dest: "/etc/fail2ban/"
+          owner: root
+          group: root
+          mode: 0644
+
+      - name: Make sudo require a password for the pi user
+        lineinfile:
+          path: "{{ pi_sudoersd_path }}"
+          regexp: "^pi"
+          line: "pi ALL=(ALL) PASSWD: ALL"

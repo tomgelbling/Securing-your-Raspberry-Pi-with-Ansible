@@ -1,0 +1,15 @@
+---
+
+#How to create encrypted passwords for the user module http://docs.ansible.com/ansible/latest/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
+#The custom password for the pi user is in this example raspbian
+pi_custom_password: "$6$7btjFEMfcuorgtb7$NfG2OyXRwoGRYqlGXCLJ/5kJU6dLJvxv2NMCbM5Jx.tgiCdifgwa5VBkBm5en.lVC0lYGbIUoc9JPUptgcw7O."
+
+#How to create encrypted passwords for the user module http://docs.ansible.com/ansible/latest/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
+#The custom password for the notpi user is in this example notraspbian
+alternative_user: "notpi"
+alternative_user_password: "$6$Wyu0qKP7an7Ptteh$jceGVs5Xdp6y651moY3um5lgBrqzEE1itdQfbMO.lfmnl8SYTESHYPdk1951k17T2weJkRr2dqvhphPh0tjxu0"
+
+pi_sudoersd_path: "/etc/sudoers.d/010_pi-nopasswd"
+sshd_config_path: "/etc/ssh/sshd_config"
+
+...

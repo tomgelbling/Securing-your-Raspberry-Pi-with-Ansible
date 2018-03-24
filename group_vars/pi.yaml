@@ -1,0 +1,6 @@
+---
+
+  ansible_user: "pi"
+  ansible_ssh_pass: "raspberry"
+
+...
