@@ -24,6 +24,8 @@ The playbook will perform configuration modifications in the following areas.
 * Install & enable ufw and fail2ban
 * Set default and ssh firewall rules
 
+---
+
 ### Prerequisites
 
 The following software packages have to be installed on your local machine and the Raspberry Pi.
@@ -49,6 +51,8 @@ The following software packages have to be installed on your local machine and t
 
 * Python 2.6 or later
   * [Python BeginnersGuide](https://wiki.python.org/moin/BeginnersGuide/Download)
+
+---
 
 ## Deployment
 
@@ -90,11 +94,15 @@ vim roles/security/vars/main.yaml
 ansible-playbook -i hosts playbook.yaml
 ```
 
+---
+
 ## Built With
 
 * [Ansible 2.3.1](https://github.com/ansible/ansible/releases/tag/v2.3.1.0-1)
 * [Raspberry Pi 2 Model B](https://www.raspberrypi.org/products/raspberry-pi-2-model-b/)
 * [Raspbian 2017-11-29-raspbian-stretch](https://www.raspberrypi.org/downloads/raspbian/)
+
+---
 
 ## Authors
 
