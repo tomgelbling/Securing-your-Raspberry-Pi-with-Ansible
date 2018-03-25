@@ -112,4 +112,4 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 ## Acknowledgments
 
 * **Raspberry Pi Foundation** - *Initial work* - [Securing your Raspberry Pi](https://www.raspberrypi.org/documentation/configuration/security.md)
-* **PurpleBooth** - *A template to make good README.md * -  [README.md Template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
+* **PurpleBooth** - *A template to make good README.md* -  [README.md Template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
