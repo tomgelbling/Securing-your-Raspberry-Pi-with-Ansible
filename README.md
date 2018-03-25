@@ -3,7 +3,7 @@
 Ansible playbook to secure your Raspberry Pi.
 Based on [Securing your Raspberry Pi](https://www.raspberrypi.org/documentation/configuration/security.md)  by the Raspberry Pi Foundation.
 
-### What will be achieved by this Ansible playbook?
+## What will be achieved by this Ansible playbook?
 
 The playbook will perform configuration modifications in the following areas.
 
@@ -26,7 +26,7 @@ The playbook will perform configuration modifications in the following areas.
 
 ---
 
-### Prerequisites
+## Prerequisites
 
 The following software packages have to be installed on your local machine and the Raspberry Pi.
 
@@ -96,7 +96,7 @@ ansible-playbook -i hosts playbook.yaml
 
 ---
 
-## Built With
+### Built With
 
 * [Ansible 2.3.1](https://github.com/ansible/ansible/releases/tag/v2.3.1.0-1)
 * [Raspberry Pi 2 Model B](https://www.raspberrypi.org/products/raspberry-pi-2-model-b/)
