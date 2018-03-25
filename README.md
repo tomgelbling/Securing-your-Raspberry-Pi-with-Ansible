@@ -3,6 +3,27 @@
 Ansible playbook to secure your Raspberry Pi.
 Based on [Securing your Raspberry Pi](https://www.raspberrypi.org/documentation/configuration/security.md)  by the Raspberry Pi Foundation.
 
+### What will be achieved by this Ansible playbook?
+
+The playbook will perform configuration modifications in the following areas.
+
+**Raspbian users**
+* Change the password of the pi user
+* Create an alternative superuser
+* Make sudo require a password
+
+**Software package updates**
+* Establish Cronjob to update the openssh-server package on a daily basis
+
+**SSH**
+* Set users that are allowed to use SSH
+* Set users that are not allowed to use SSH
+* Establish key-based authentication and disable all other authenticaton methods
+
+**Firewall**
+* Install & enable ufw and fail2ban
+* Set default and ssh firewall rules
+
 ### Prerequisites
 
 The following software packages have to be installed on your local machine and the Raspberry Pi.
@@ -43,6 +64,7 @@ git clone https://github.com/tomgelbling/Securing-your-Raspberry-Pi-with-Ansible
 cd Securing-your-Raspberry-Pi-with-Ansible/
 ```
 
+
 **How to edit the config files**
 
 Add your Raspberry Pi IP address to the pi host group
@@ -59,6 +81,7 @@ Edit the variables file to set e.g. the custom password for the pi user, the nam
 ```
 vim roles/security/vars/main.yaml
 ```
+
 
 
 **How to run the Ansible playbook to secure your Raspberry Pi**
