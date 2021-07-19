@@ -75,12 +75,12 @@ echo "192.168.2.110" >> hosts
 
 Add your public key to the authorized_keys files
 ```
-cat /.ssh/id_rsa.pub >> roles/security/files/authorized_keys
+cat ~/.ssh/id_rsa.pub >> ./roles/security/files/authorized_keys
 ```
 
 Edit the variables file to set e.g. the custom password for the pi user, the name of the alternative user etc.
 ```
-vim roles/security/vars/main.yaml
+vim ./roles/security/vars/main.yaml
 ```
 
 ### How to run the Ansible playbook to secure your Raspberry Pi
